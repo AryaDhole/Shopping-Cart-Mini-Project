@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-const int MAX_DEVICES = 20;
+const int MAX_DEVICES = 20;  // Maximum number of products
 class Products 
 {
     public:
@@ -12,26 +12,26 @@ class Products
     float price;
     int quantity;
 
-    Products() : name(""), price(0), quantity(0) {}
-    Products(const string& n, float p) : name(n), price(p), quantity(0) {}
+    Products() : name(""), price(0), quantity(0) {}   // Default constructor
+    Products(const string& n, float p) : name(n), price(p), quantity(0) {}   // Constructor with parameters to initialize name and price
 
     float getTotalPrice() const 
 	{
-        return price * quantity;
+        return price * quantity;  // Calculating the total price of a product
     }
 };
 
 class ShoppingSystem
 {
     public:
-    Products devices[MAX_DEVICES];
-    int Item;
-    int discountThreshold;
-    int discountThreshold1;
-    float baseDiscountRate;
-    float DiscountRate1;
+    Products devices[MAX_DEVICES];  // Array to store available devices
+    int Item;                      // Number of available devices
+    int discountThreshold;        // Quantity threshold for discount
+    int discountThreshold1;      // Second threshold for discount
+    float baseDiscountRate;     // Base discount rate
+    float DiscountRate1;       // Discount rate for higher quantity
 
-    ShoppingSystem() : Item(0), discountThreshold(2), discountThreshold1(4), baseDiscountRate(0.05), DiscountRate1(0.1)
+    ShoppingSystem() : Item(0), discountThreshold(2), discountThreshold1(4), baseDiscountRate(0.05), DiscountRate1(0.1)  // Constructor to initialize the product list
 	{
 		
         devices[Item++] = Products("iPhone 15", 80000);
@@ -59,7 +59,7 @@ class ShoppingSystem
         devices[Item++] = Products("Pixel Watch 2", 45000);	   
     }
 
-    void displayMenu()
+    void displayMenu() // Display the product menu
 	{
         cout << "Product Menu:\n";
         cout << "\nSmartphones\n"<<endl;
@@ -86,20 +86,20 @@ class ShoppingSystem
         cout << "-------------------------------\n";
     }
 
-    void purchaseDevice(int choice, int quantity) 
+    void purchaseDevice(int choice, int quantity) // Adding  product to the cart
 	{
         if (choice >= 1 && choice <= Item) 
 		{
             devices[choice - 1].quantity += quantity;
             cout << quantity << " " << devices[choice - 1].name << " added to the cart.\n";
         }
-		else
+	else
 		{
 			cout << "Invalid choice. Please try again.\n";
         }
     }
 
-    float calculateTotalPrice()
+    float calculateTotalPrice()   // Calculating the total price of items in the cart
 	{
         float total = 0;
         for (int i = 0; i < Item; ++i)
@@ -109,7 +109,8 @@ class ShoppingSystem
         return total;
     }
 
-    float calculateDiscount()
+    float calculateDiscount()    // Calculating applicable discounts
+
 	{
         float totalQuantity = 0;
         for (int i = 0; i < Item; ++i)
@@ -132,7 +133,7 @@ class ShoppingSystem
 
 int main()
 {
-    ShoppingSystem shoppingSystem;
+    ShoppingSystem shoppingSystem; // Creating an instance of the ShoppingSystem class
     char choice;
     do
 	{
@@ -164,6 +165,7 @@ int main()
         cin >> choice;
     } while (choice == 'y' || choice == 'Y');
 
+    // Calculating the total bill, discount, and final bill
     double totalBill = shoppingSystem.calculateTotalPrice();
     double discount = shoppingSystem.calculateDiscount();
     double finalBill = totalBill - discount;
